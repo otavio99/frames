@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width" />
+	<title>Verificar Carro</title>
+	<link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+
+<body>
+	
+	<div th:insert="~{Menu :: menu}"></div>
+	
+	<div class="card" style="margin: 10px">
+        
+        <div class="card-header">
+            <h1 class="card-title">Verificar Carro - <span class="badge badge-dark" th:text="${carro.placa}"></span></h1>
+		</div>
+
+		<div class="card-body">
+            
+			<table class="table">
+				<thead> 
+					<tr>
+                        <th>#</th>
+                        <th>ANO</th>
+                        <th>CIDADE</th>
+                        <th>INFRAÇÃO</th>
+                        <th>PONTOS</th>
+                        <th>VALOR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="multa : ${carro.multas}">
+					    <td th:text="${multa.id}"></td>
+					    <td th:text="${multa.ano}"></td>
+					    <td th:text="${multa.cidade}"></td>
+					    <td th:text="${multa.tipoInfracao.descricao}"></td>
+					    <td th:text="${multa.tipoInfracao.pontos}"></td>
+					    <td th:text="${'R$ ' + multa.tipoInfracao.valor}"></td>
+					</tr>
+                </tbody>
+                <tfoot th:if="${carro.multas.size() != 0}">
+                	<tr>
+					    <td></td>
+					    <td></td>
+					    <td></td>
+					    <td style="font-weight: bold; color: red">TOTAL ACUMULADO:</td>
+					    <td style="font-weight: bold; color: red" th:text="${#aggregates.sum(carro.multas.![tipoInfracao.pontos])}"></td>
+					    <td style="font-weight: bold; color: red" th:text="${'R$ ' + #aggregates.sum(carro.multas.![tipoInfracao.valor])}"></td>
+					</tr>
+                </tfoot>
+                <tfoot th:if="${carro.multas.size() == 0}">
+                	<tr>
+                		<td colspan="6" style="text-align: center">Nenhuma multa foi encontrada para esse carro.</td>
+					</tr>
+                </tfoot>
+            </table>
+            
+        </div>
+    </div>
+    
+    <div style="text-align: center"><a class="btn btn-primary" href="/carros">Retornar</a></div>
+    
+</body>
+</html>
