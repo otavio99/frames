@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.OneToMany;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.FetchType;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,18 +29,22 @@ public class Voo implements Serializable {
     private String horario;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_aeroporto", nullable=false, insertable=false, updatable=false)
+    @JoinColumn(name = "id_aeroportoChegada", nullable=false)
     private Aeroporto aeroportoChegada;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_aeroporto", nullable=false, insertable=false, updatable=false)
+    @JoinColumn(name = "id_aeroportoPartida", nullable=false)
     private Aeroporto aeroportoPartida;
-
+    
      @OneToMany(
         mappedBy = "voo",
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
     private List<Passagem> passagens = new ArrayList<>();
+    
+     
+    @OneToOne(cascade=CascadeType.ALL)
+    private Aviao aviao;
 
 }
