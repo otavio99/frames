@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -13,7 +14,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "Aeroporto")
+@Table(name = "aeroporto")
 @Getter @Setter @NoArgsConstructor
 public class Aeroporto implements Serializable {
 	@Id
@@ -23,11 +25,19 @@ public class Aeroporto implements Serializable {
     private String nome;
     private String localizacao;
     
+    
     @OneToMany(
-        mappedBy = "post",
+        mappedBy = "aeroportoChegada",
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
-    private List<PostComment> comments = new ArrayList<>();
+    private List<Voo> voosChegada = new ArrayList<>();
+
+    @OneToMany(
+        mappedBy = "aeroportoPartida",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    private List<Voo> voosPartida = new ArrayList<>();
 	
 }

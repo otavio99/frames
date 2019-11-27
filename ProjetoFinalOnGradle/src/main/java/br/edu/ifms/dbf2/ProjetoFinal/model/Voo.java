@@ -8,12 +8,17 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Entity(name = "Voo")
+@Table(name = "voo")
 @Getter @Setter @NoArgsConstructor
 public class Voo implements Serializable {
 	@Id
@@ -21,4 +26,20 @@ public class Voo implements Serializable {
 	private Long id_voo;
     private String compania;
     private String horario;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_aeroporto", nullable=false, insertable=false, updatable=false)
+    private Aeroporto aeroportoChegada;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_aeroporto", nullable=false, insertable=false, updatable=false)
+    private Aeroporto aeroportoPartida;
+
+     @OneToMany(
+        mappedBy = "voo",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    private List<Passagem> passagens = new ArrayList<>();
+
 }
