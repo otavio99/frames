@@ -21,23 +21,23 @@ public class Aeroporto implements Serializable {
 	@Id
 	@GeneratedValue
 	private Long id_aeroporto;
-    private String codigo;
-    private String nome;
-    private String localizacao;
-    
-    
-    @OneToMany(
-        mappedBy = "aeroportoChegada",
-        cascade = CascadeType.ALL,
-        orphanRemoval = true
-    )
-    private List<Voo> voosChegada = new ArrayList<>();
-
-    @OneToMany(
-        mappedBy = "aeroportoPartida",
-        cascade = CascadeType.ALL,
-        orphanRemoval = true
-    )
-    private List<Voo> voosPartida = new ArrayList<>();
+	private String codigo;
+	private String nome;
+	private String localizacao;
 	
+	
+	@OneToMany(
+			mappedBy = "aeroportoChegada",
+			cascade = CascadeType.ALL,
+			orphanRemoval = true
+	)
+	private List<Voo> voosChegada = new ArrayList<>();
+
+	@OneToMany(
+			mappedBy = "aeroportoPartida",
+			cascade = CascadeType.ALL,
+			orphanRemoval = true
+	)
+	private List<Voo> voosPartida = new ArrayList<>();
+
 }

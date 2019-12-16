@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width" />
+	<title>Comprar Passagem</title>
+	<link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+
+<body>
+	
+	<div th:insert="~{Menu :: menu}"></div>
+	
+	<div class="card" style="margin: 10px">
+        
+        <div class="card-header">
+            <h1 class="card-title">
+            	Comprar Passagem
+			 </h1>
+		</div>
+
+		<div class="card-body">
+            
+            <form method="POST" th:object="${passagem}" th:action="@{/voos/passagem}" style="margin: 20px 0">
+			    <input type="hidden" class="form-control" th:field="*{id}"/>
+			    <input type="hidden" class="form-control" th:field="*{checkin}" value="false"/>
+			    
+			    <div class="form-group form-inline d-flex justify-content-center">
+			        <label for="idVoo">ID Voo:</label>
+			        &nbsp;
+			        <input id="idVoo" type="text" class="form-control"
+			        	required="required" readonly="readonly"
+			            th:field="*{voo.id}"/>
+			        &nbsp;
+			        &nbsp;
+			        &nbsp;
+			        <label for="companiaVoo">Compania Voo:</label>
+			        &nbsp;
+			    	<input id="companiaVoo" type="text" class="form-control"
+			            required="required" readonly="readonly"
+			            th:field="*{voo.compania}" />
+			    </div>
+			    
+			    <div class="form-group form-inline d-flex justify-content-center">
+			        <label for="numero">Número:</label>
+			        &nbsp;
+			        <input id="numero" type="text" class="form-control"
+			            placeholder="Número" required="required"
+			            th:field="*{numero}"/>
+			        &nbsp;
+			        &nbsp;
+			        &nbsp;
+			        <label for="data">Data da Compra:</label>
+			        &nbsp;
+			    	<input id="data" type="text" class="form-control"
+			            required="required" readonly="readonly"
+			            th:field="*{data_compra}"/>
+			    </div>
+			    <div class="form-group form-inline d-flex justify-content-center">
+			    	<label for="poltrona">Poltrona:</label>
+			        &nbsp;
+			    	<input id="poltrona" type="text" class="form-control"
+			            required="required" placeholder="Poltrona"
+			            th:field="*{poltrona}"/>
+		            &nbsp;
+		            &nbsp;
+		            &nbsp;
+			        <label for="preco">Preço:</label>
+			        &nbsp;
+			    	<input id="preco" type="text" class="form-control" required="required" placeholder="Preço" th:field="*{preco}"/>
+			    </div>
+			    <div class="form-group form-inline d-flex justify-content-center">
+			    	<label for="passageiro">Passageiro:</label>
+			        &nbsp;
+			    	<input id="passageiro" type="text" class="form-control"
+			            required="required" placeholder="Passageiro"
+			            th:field="*{passageiro}"/>
+		            &nbsp;
+		            &nbsp;
+		            &nbsp;
+			        <label for="cpf">CPF:</label>
+			        &nbsp;
+			    	<input id="cpf" type="text" class="form-control"
+			            required="required" placeholder="CPF"
+			            th:field="*{cpf}"/>
+			    </div>
+			    <div class="form-group form-inline d-flex justify-content-center">
+				    <button type="submit"
+				    	class="btn btn-primary">Salvar
+					</button>
+				</div>
+			</form>
+			
+        </div>
+    </div>
+</body>
+</html>

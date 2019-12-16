@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width" />
+	<title>Lista de Carros</title>
+	<link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+
+<body>
+	
+	<div th:insert="~{Menu :: menu}"></div>
+	
+	<div class="card" style="margin: 10px">
+        
+        <div class="card-header">
+            <h1 class="card-title">
+            	Lista de Voos Cadastrados
+			 </h1>
+		</div>
+
+		<div class="card-body">     
+      <form class="form-inline" method="POST" th:object="${voo}"
+            	th:action="@{/voos}" style="margin: 20px 0">
+			    <div class="form-group">
+						<label th:for="compania" th:text="'Compania: '"></label>
+						&nbsp;
+						<input type="text" class="form-control"
+								placeholder="Compania" required="required"
+								th:field="*{compania}"/>
+						&nbsp;
+						<label th:for="compania" th:text="'Horario: '"></label>
+						&nbsp;
+						<input type="text" class="form-control"
+								placeholder="Horario" required="required"
+								th:field="*{horario}"/>
+						&nbsp;
+						<select class="form-control" th:field="*{aviao.id_aviao}">
+							<option value="0" disabled>Codigo Aviao</option>
+							<option th:each="aviao : ${avioes}" th:value="${aviao.id_aviao}" 
+							th:text="${aviao.numero}"></option>
+						</select>
+						&nbsp;
+						<select class="form-control" th:field="*{aeroportoChegada.id_aeroporto}">
+							<option value="" disabled>Aeroporto Chegada</option>
+    					<option th:each="aeroporto : ${aeroportos}" th:value="${aeroporto.id_aeroporto}" 
+    					th:text="${aeroporto.nome}"></option>
+						</select>
+						&nbsp;
+						<select class="form-control" name="" th:field="*{aeroportoPartida.id_aeroporto}">
+							<option value="" disabled>Aeroporto Partida</option>
+    					<option th:each="aeroporto : ${aeroportos}" th:value="${aeroporto.id_aeroporto}" 
+    					th:text="${aeroporto.nome}"></option>
+						</select>
+						&nbsp;
+						<button type="submit"
+								class="btn btn-primary">Salvar
+						</button>
+			    </div>
+			</form>
+
+      <table class="table">
+				<thead> 
+					<tr>
+						<th>#</th>
+						<th>COMPANIA</th>
+						<th>HORARIO</th>
+						<th>PARTIDA</th>
+						<th>CHEGADA</th>
+						<th sec:authorize="hasRole('CLIENTE')">PASSAGEM</th>
+						<th sec:authorize="hasAnyRole('ADMIN', 'ATENDENTE')">CHECKLIST</th>
+						<th sec:authorize="hasRole('ADMIN')">EDITAR</th>
+						<th sec:authorize="hasRole('ADMIN')">EXCLUIR</th>
+					</tr>
+				</thead>
+				<tbody>
+          <tr th:each="voo : ${voos}">
+						<td th:text="${voo.id_voo}"></td>
+						<td th:text="${voo.compania}"></td>
+						<td th:text="${voo.horario}"></td>
+						<td th:text="${voo.aeroportoPartida.nome}"></td>
+						<td th:text="${voo.aeroportoChegada.nome}"></td>
+						<td sec:authorize="hasRole('CLIENTE')"> 
+							<a class="btn btn-primary"
+								th:href="@{/voos/passagem/{id}(id=${voo.id})}">Comprar
+							</a>
+						</td>
+						<td sec:authorize="hasAnyRole('ADMIN', 'ATENDENTE')"> 
+							<a class="btn btn-primary"
+								th:href="@{/voos/checklist/{id}(id=${voo.id})}">Checklist
+							</a>
+						</td>
+						<td sec:authorize="hasRole('ADMIN')"> 
+							<a class="btn btn-warning"
+								th:href="@{/voos/{id}(id=${voo.id})}">Editar
+							</a>
+						</td>
+						<td sec:authorize="hasRole('ADMIN')"> 
+							<a class="btn btn-danger"
+								th:href="@{/voos/deletar/{id}(id=${voo.id})}">Excluir
+							</a>
+						</td>
+					</tr>
+        </tbody>
+      </table>   
+    </div>
+  </div>
+</body>
+</html>

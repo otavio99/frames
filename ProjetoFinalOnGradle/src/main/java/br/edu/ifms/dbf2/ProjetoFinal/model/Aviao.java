@@ -19,9 +19,10 @@ public class Aviao implements Serializable {
 	@Id
 	@GeneratedValue
 	private Long id_aviao;
-    private int numero;
-    private String fabricante;
-    private int capacidade;
-    private String tipo;
-	
+	private int numero;
+	private String fabricante;
+	private int capacidade;
+	private String tipo;
+	@OneToOne
+	private Voo voo;
 }

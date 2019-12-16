@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width" />
+	<title>Lista de Aeroportos</title>
+	<link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+
+<body>
+	
+	<div th:insert="~{Menu :: menu}"></div>
+	
+	<div class="card" style="margin: 10px">
+        
+        <div class="card-header">
+            <h1 class="card-title">
+            	Lista de Aeroportos Cadastrados
+			 </h1>
+		</div>
+
+		<div class="card-body">
+            
+            <form class="form-inline" method="POST" th:object="${aeroporto}"
+            	th:action="@{/aeroportos}" style="margin: 20px 0">
+			    
+			    <div class="form-group">
+			        
+			        <input type="text" class="form-control"
+			            placeholder="Código" required="required"
+			            th:field="*{codigo}"/>
+			        &nbsp;
+			        <input type="text" class="form-control"
+			            placeholder="Nome" required="required"
+			            th:field="*{nome}"/>
+			        &nbsp;
+			        <input type="text" class="form-control"
+			            placeholder="Localização" required="required"
+			            th:field="*{localizacao}"/>
+			        &nbsp;
+			        <button type="submit"
+			            class="btn btn-primary">Salvar
+					</button>
+			    
+			    </div>
+			</form>
+
+            <table class="table">
+				<thead> 
+					<tr>
+                        <th>#</th>
+                        <th>CÓDIGO</th>
+                        <th>NOME</th>
+                        <th>LOCALIZAÇÃO</th>
+                        <th>EDITAR</th>
+                        <th>EXCLUIR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="aeroporto : ${aeroportos}">
+					    <td th:text="${aeroporto.id}"></td>
+					    <td th:text="${aeroporto.codigo}"></td>
+					    <td th:text="${aeroporto.nome}"></td>
+					    <td th:text="${aeroporto.localizacao}"></td>
+					    <td> 
+					    	<a class="btn btn-primary"
+					    		th:href="@{/aeroportos/{id}(id=${aeroporto.id})}">Editar
+					    	</a>
+					    </td>
+					    <td> 
+					    	<a class="btn btn-danger"
+					    		th:href="@{/aeroportos/deletar/{id}(id=${aeroporto.id})}">Excluir
+					    	</a>
+					    </td>
+					</tr>
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</body>
+</html>

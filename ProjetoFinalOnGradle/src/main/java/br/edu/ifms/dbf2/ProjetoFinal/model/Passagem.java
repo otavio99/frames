@@ -22,16 +22,16 @@ public class Passagem implements Serializable {
 	@Id
 	@GeneratedValue
 	private Long id_passagem;
-    private int numero;
-    private String data_compra;
-    private String poltrona;
-    private float preco;
-    private String passageiro;
-    private String cpf;
-    private boolean chekin;
+	private int numero;
+	private String data_compra;
+	private String poltrona;
+	private float preco;
+	private String passageiro;
+	private String cpf;
+	private boolean chekin;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_voo")
-    private Voo voo;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_voo")
+	private Voo voo;
 	
 }

@@ -12,11 +12,11 @@
 			  </button>
 			  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			    <div class="navbar-nav mr-auto">
-			      <a class="nav-item nav-link" href="/">Voos</a>
+			      <a class="nav-item nav-link" href="/voos">Voos</a>
 			      <a sec:authorize="hasRole('ADMIN')" class="nav-item nav-link" href="/aeroportos">Aeroportos</a>
 			      <a sec:authorize="hasRole('ADMIN')" class="nav-item nav-link" href="/avioes">Avioes</a>
 			    </div>
-			    <div class="navbar-brand"> 
+			     <div class="navbar-brand"> 
 			      <a class="nav-item nav-link" th:href="@{/logout}">Logout [<span sec:authentication="name"></span>]</a>
 			    </div>
 			  </div>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width" />
+	<title>Lista de Voos</title>
+	<link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+
+<body>
+	
+	<div th:insert="~{Menu :: menu}"></div>
+	
+	<div class="card" style="margin: 10px">
+        
+        <div class="card-header">
+            <h1 class="card-title">
+            	Lista de Voos Cadastrados
+			 </h1>
+		</div>
+
+		<div class="card-body">
+            
+            <form class="form-inline" method="POST" th:object="${voo}"
+            	th:action="@{/voos}" style="margin: 20px 0">
+			    
+			    <div class="form-group">
+			        <input type="hidden" class="form-control"
+			            th:field="*{id}"/>
+			        &nbsp;
+			        <input type="text" class="form-control"
+			            placeholder="Compania" required="required"
+			            th:field="*{compania}" value=""/>
+			        &nbsp;
+			        <input type="time" class="form-control"
+			            placeholder="Horário" required="required"
+			            th:field="*{horario}"/>
+			        &nbsp;
+			        <select class="form-control" th:field="*{aviao.id}">
+			    	
+    					<option th:each="aviao : ${avioes}" th:value="${aviao.id}" 
+    					th:text="${aviao.numero}"></option>
+    					
+					</select>
+			        &nbsp;
+			        <select class="form-control" th:field="*{aeroportoPartida.id}">
+			    	
+    					<option th:each="aeroporto : ${aeroportos}" th:value="${aeroporto.id}" 
+    					th:text="${aeroporto.localizacao}"></option>
+    					
+					</select>
+			        &nbsp;
+			        <select class="form-control" th:field="*{aeroportoChegada.id}">
+			    	
+    					<option th:each="aeroporto : ${aeroportos}" th:value="${aeroporto.id}" 
+    					th:text="${aeroporto.localizacao}"></option>
+    					
+					</select>
+			        &nbsp;
+			        <button type="submit"
+			            class="btn btn-primary">Salvar
+					</button>
+			    
+			    </div>
+			</form>
+			
+        </div>
+    </div>
+</body>
+</html>

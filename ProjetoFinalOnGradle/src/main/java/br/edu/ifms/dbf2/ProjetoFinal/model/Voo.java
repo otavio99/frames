@@ -25,26 +25,24 @@ public class Voo implements Serializable {
 	@Id
 	@GeneratedValue
 	private Long id_voo;
-    private String compania;
-    private String horario;
+	private String compania;
+	private String horario;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_aeroportoChegada", nullable=false)
-    private Aeroporto aeroportoChegada;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_aeroportoChegada", nullable=false)
+	private Aeroporto aeroportoChegada;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_aeroportoPartida", nullable=false)
-    private Aeroporto aeroportoPartida;
-    
-     @OneToMany(
-        mappedBy = "voo",
-        cascade = CascadeType.ALL,
-        orphanRemoval = true
-    )
-    private List<Passagem> passagens = new ArrayList<>();
-    
-     
-    @OneToOne(cascade=CascadeType.ALL)
-    private Aviao aviao;
-
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_aeroportoPartida", nullable=false)
+	private Aeroporto aeroportoPartida;
+	
+	@OneToMany(
+		mappedBy = "voo",
+		cascade = CascadeType.ALL,
+		orphanRemoval = true
+	)
+	private List<Passagem> passagens = new ArrayList<>();
+	
+	@OneToOne
+	private Aviao aviao;
 }

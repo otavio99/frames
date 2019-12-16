@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width" />
+	<title>Lista de Voos</title>
+	<link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+
+<body>
+	
+	<div th:insert="~{Menu :: menu}"></div>
+	
+	<div class="card" style="margin: 10px">
+        
+        <div class="card-header">
+            <h1 class="card-title">
+            	Lista de Passageiros
+			 </h1>
+		</div>
+
+		<div class="card-body">
+            <table class="table">
+				<thead> 
+					<tr>
+                        <th>#</th>
+                        <th>NOME PASSAGEIRO</th>
+                        <th>CPF PASSAGEIRO</th>
+                        <th>NÚMERO</th>
+                        <th>DATA DA COMPRA</th>
+                        <th>POLTRONA</th>
+                        <th>CHECKIN</th>
+                        <th>EXCLUIR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="passagem : ${passagens}">
+					    <td th:text="${passagem.id}"></td>
+					    <td th:text="${passagem.passageiro}"></td>
+					    <td th:text="${passagem.cpf}"></td>
+					    <td th:text="${passagem.numero}"></td>
+					    <td th:text="${passagem.data_compra}"></td>
+					    <td th:text="${passagem.poltrona}"></td>
+					    <td th:if="${passagem.checkin == true}">
+					    	<img src="https://cdn.pixabay.com/photo/2015/06/09/16/12/icon-803718_640.png" width="30" height="30" class="d-inline-block align-top" alt="">
+					    	Checkin realizado!</td>
+					    <td th:if="${passagem.checkin == false}"> 
+					    	<a class="btn btn-primary"
+					    		th:href="@{/voos/passagem/checkin/{id}(id=${passagem.id})}">Realizar Checkin
+					    	</a>
+					    </td>
+					    <td> 
+					    	<a class="btn btn-danger"
+					    		th:href="@{/voos/passagem/deletar/{id}(id=${passagem.id})}">Excluir
+					    	</a>
+					    </td>
+					</tr>
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</body>
+</html>
